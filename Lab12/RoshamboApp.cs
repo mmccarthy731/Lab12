@@ -9,6 +9,11 @@ namespace Lab12
 {
     class RoshamboApp
     {
+
+        static int wins = 0;
+        static int losses = 0;
+        static int ties = 0;
+
         static void Main(string[] args)
         {
             List<Player> opponents = new List<Player>();
@@ -21,9 +26,6 @@ namespace Lab12
 
             int index = Validator.GetOpponent("\nPlease select your opponent. (Enter \"A\" to play against Rocky Balboa or \"B\" to play against Roshambo Jackson): ");
 
-            int wins = 0;
-            int losses = 0;
-            int ties = 0;
             
             bool repeat = true;
             while (repeat)
@@ -36,18 +38,6 @@ namespace Lab12
                     (opponents[index]).Pick = opponentPick;
                     string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
                     Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
-                    if (result.Contains(user.Name))
-                    {
-                        wins++;
-                    }
-                    else if (result.Contains(opponents[index].Name))
-                    {
-                        losses++;
-                    }
-                    else
-                    {
-                        ties++;
-                    }
                 }
                 else
                 {
@@ -55,23 +45,11 @@ namespace Lab12
                     (opponents[index]).Pick = opponentPick;
                     string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
                     Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
-                    if (result.Contains(user.Name))
-                    {
-                        wins++;
-                    }
-                    else if (result.Contains(opponents[index].Name))
-                    {
-                        losses++;
-                    }
-                    else
-                    {
-                        ties++;
-                    }
                 }
                 Console.WriteLine($"Record vs. {opponents[index].Name}: {wins}-{losses}-{ties}\n");
                 repeat = Validator.DoAgain("Would you like to play again? (Y or N): ");
             }
-            Console.WriteLine("Thank you for playing! Goodbye.");
+            Console.WriteLine("\nThank you for playing!\n\nGoodbye.");
             Console.ReadLine();
         }
 
@@ -82,14 +60,17 @@ namespace Lab12
             {
                 if(opponentPick == Roshambo.rock)
                 {
+                    ties++;
                     result = "Draw!";
                 }
                 else if(opponentPick == Roshambo.paper)
                 {
+                    losses++;
                     result = $"{opponent.Name} wins!";
                 }
                 else
                 {
+                    wins++;
                     result = $"{user.Name} wins!";
                 }
             }
@@ -97,14 +78,17 @@ namespace Lab12
             {
                 if(opponentPick == Roshambo.rock)
                 {
+                    wins++;
                     result = $"{user.Name} wins!";
                 }
                 else if(opponentPick == Roshambo.paper)
                 {
+                    ties++;
                     result = "Draw!";
                 }
                 else
                 {
+                    losses++;
                     result = $"{opponent.Name} wins!";
                 }
             }
@@ -112,14 +96,17 @@ namespace Lab12
             {
                 if(opponentPick == Roshambo.rock)
                 {
+                    losses++;
                     result = $"{opponent.Name} wins!";
                 }
                 else if(opponentPick == Roshambo.paper)
                 {
+                    wins++;
                     result = $"{user.Name} wins!";
                 }
                 else
                 {
+                    ties++;
                     result = "Draw!";
                 }
             }
