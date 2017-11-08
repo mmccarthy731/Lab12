@@ -9,7 +9,6 @@ namespace Lab12
 {
     class RoshamboApp
     {
-
         static int wins = 0;
         static int losses = 0;
         static int ties = 0;
@@ -26,26 +25,24 @@ namespace Lab12
 
             int index = Validator.GetOpponent("\nPlease select your opponent. (Enter \"A\" to play against Rocky Balboa or \"B\" to play against Roshambo Jackson): ");
 
-            
             bool repeat = true;
             while (repeat)
             { 
                 Roshambo pick = user.GenerateRoshambo();
                 user.Pick = pick;
+                Roshambo opponentPick;
                 if (opponents[index] is Opponent1)
                 {
-                    Roshambo opponentPick = ((Opponent1)opponents[index]).GenerateRoshambo();
-                    (opponents[index]).Pick = opponentPick;
-                    string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
-                    Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
+                    opponentPick = ((Opponent1)opponents[index]).GenerateRoshambo();
                 }
                 else
                 {
-                    Roshambo opponentPick = ((Opponent2)opponents[index]).GenerateRoshambo();
-                    (opponents[index]).Pick = opponentPick;
-                    string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
-                    Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
+                    opponentPick = ((Opponent2)opponents[index]).GenerateRoshambo();
                 }
+                (opponents[index]).Pick = opponentPick;
+                string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
+                Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
+                
                 Console.WriteLine($"Record vs. {opponents[index].Name}: {wins}-{losses}-{ties}\n");
                 repeat = Validator.DoAgain("Would you like to play again? (Y or N): ");
             }
