@@ -30,16 +30,10 @@ namespace Lab12
             { 
                 Roshambo pick = user.GenerateRoshambo();
                 user.Pick = pick;
-                Roshambo opponentPick;
-                if (opponents[index] is Opponent1)
-                {
-                    opponentPick = ((Opponent1)opponents[index]).GenerateRoshambo();
-                }
-                else
-                {
-                    opponentPick = ((Opponent2)opponents[index]).GenerateRoshambo();
-                }
+
+                Roshambo opponentPick = (opponents[index]).GenerateRoshambo();
                 (opponents[index]).Pick = opponentPick;
+
                 string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
                 Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
                 
