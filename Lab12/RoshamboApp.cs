@@ -9,9 +9,9 @@ namespace Lab12
 {
     class RoshamboApp
     {
-        static int wins = 0;
-        static int losses = 0;
-        static int ties = 0;
+        static int wins;
+        static int losses;
+        static int ties;
 
         static void Main(string[] args)
         {
@@ -23,22 +23,32 @@ namespace Lab12
             string name = User.GetUserName("Please enter your name: ");
             User user = new User(name);
 
-            int index = Validator.GetOpponent("\nPlease select your opponent. (Enter \"A\" to play against Rocky Balboa or \"B\" to play against Roshambo Jackson): ");
+            bool newOpponent = true;
+            while (newOpponent)
+            {
+                wins = 0;
+                losses = 0;
+                ties = 0;
 
-            bool repeat = true;
-            while (repeat)
-            { 
-                Roshambo pick = user.GenerateRoshambo();
-                user.Pick = pick;
+                int index = Validator.GetOpponent("\nPlease select your opponent. (Enter \"A\" to play against Rocky Balboa or \"B\" to play against Roshambo Jackson): ");
 
-                Roshambo opponentPick = (opponents[index]).GenerateRoshambo();
-                (opponents[index]).Pick = opponentPick;
+                bool repeat = true;
+                while (repeat)
+                {
+                    Roshambo pick = user.GenerateRoshambo();
+                    user.Pick = pick;
 
-                string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
-                Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
-                
-                Console.WriteLine($"Record vs. {opponents[index].Name}: {wins}-{losses}-{ties}\n");
-                repeat = Validator.DoAgain("Would you like to play again? (Y or N): ");
+                    Roshambo opponentPick = (opponents[index]).GenerateRoshambo();
+                    (opponents[index]).Pick = opponentPick;
+
+                    string result = GetResults(user, opponents[index], user.Pick, (opponents[index]).Pick);
+                    Console.WriteLine("\n" + user.ToString() + opponents[index].ToString() + result + "\n");
+
+                    Console.WriteLine($"Record vs. {opponents[index].Name}: {wins}-{losses}-{ties}\n");
+                    repeat = Validator.DoAgain($"Would you like to play against {opponents[index].Name} again? (Y or N): ");
+                }
+                Console.WriteLine();
+                newOpponent = Validator.DoAgain("Would you like to play against a different opponent? (Y or N): ");
             }
             Console.WriteLine("\nThank you for playing!\n\nGoodbye.");
             Console.ReadLine();
